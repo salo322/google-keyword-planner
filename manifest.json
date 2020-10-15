@@ -1,0 +1,29 @@
+{
+    "name": "keyword planner",
+    "version": "1.0",
+    "icons":{
+        "48":"./img/icon.png"
+    },
+    "description": "google keyword planner",
+    "manifest_version": 2,
+    "browser_action": {
+      "default_icon": {
+        "48": "./img/icon.png"
+    }
+    },
+    "permissions": [
+       "storage",
+       "<all_urls>"
+    ],
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["./js/jquery.js", "./js/content.js"]
+        }
+      ],
+    "background": {
+      "scripts": ["./js/jquery.js", "./js/background.js"],
+      "persistent": false
+ 
+    }
+  }
