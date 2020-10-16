@@ -20,7 +20,7 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
           });
       }
       if (info.menuItemId === "context2"){
-        var newURL = "http://stackoverflow.com/";
+        var newURL = "https://renrasedoya.com/lp/google-ads-training/";
         chrome.tabs.create({ url: newURL });
       }
   }
