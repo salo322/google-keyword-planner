@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener(
            console.log(lng)
            let  table = document.createElement('table');
            table.className = "tableForCopy";
+       
            //get keyword titles
            for (let i = 0; i < lng; i++) {
            let rowTitles = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable keyword-text')[i];
@@ -33,21 +34,24 @@ chrome.runtime.onMessage.addListener(
            table.appendChild(tr);
         }
             $('body').append(table);
-        let btn = document.createElement('button')
-            btn.innerHTML = "Copy";
-            btn.style.width = "100px"
+            let btn = document.createElement('button');
+            btn.className = "btnZnd";
+            btn.style.width = "1px";
+            btn.style.height = "1px";
+
             $('body').append(btn)
            
             btn.addEventListener('click', function(){
             let urlField = document.querySelector('.tableForCopy');
              
-              selection = window.getSelection();  
-              range = document.createRange();
-              range.selectNodeContents(urlField);
-              selection.removeAllRanges();         
-              selection.addRange(range);
-              document.execCommand('copy');
+            selection = window.getSelection();  
+            range = document.createRange();
+            range.selectNodeContents(urlField);
+            selection.removeAllRanges();         
+            selection.addRange(range);
+            document.execCommand('copy');
             }, false)
+            $(btn).trigger('click');
       
       }, 1000)
     }

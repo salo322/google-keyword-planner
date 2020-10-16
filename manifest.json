@@ -20,7 +20,8 @@
     "content_scripts": [
         {
           "matches": ["https://ads.google.com/aw/*"],
-          "js": ["./js/jquery.js", "./js/content.js"]
+          "js": ["./js/jquery.js", "./js/content.js"],
+          "css": ["./css/style.css"]
         }
       ],
     "background": {
