@@ -1,12 +1,12 @@
 
 chrome.contextMenus.create({
-  id: "context1",
+  id: "copyContextMenu",
   title: "copy keywords & avg. monthly searches",
   contexts: ["all"]
 });
 
 chrome.contextMenus.create({
-  id: "context2",
+  id: "openLink",
   title: "Google ads training (free)",
   contexts: ["all"]
 });
@@ -14,12 +14,12 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (tab) {
-      if (info.menuItemId === "context1"){
+      if (info.menuItemId === "copyContextMenu"){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.sendMessage(tabs[0].id, {message: "getInfo"})
           });
       }
-      if (info.menuItemId === "context2"){
+      if (info.menuItemId === "openLink"){
         var newURL = "https://renrasedoya.com/lp/google-ads-training/";
         chrome.tabs.create({ url: newURL });
       }
