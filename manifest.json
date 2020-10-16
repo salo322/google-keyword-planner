@@ -1,14 +1,18 @@
 {
-    "name": "keyword planner",
-    "version": "1.0.4",
+    "name": "Keyword Planner Extension",
+    "version": "1.0.5",
     "icons":{
-        "48":"./img/icon.png"
+      "16": "./img/copy16.png",
+      "32":"./img/copy32.png",
+      "64":"./img/copy64.png"
     },
     "description": "google keyword planner",
     "manifest_version": 2,
     "browser_action": {
       "default_icon": {
-        "48": "./img/icon.png"
+        "16": "./img/copy16.png",
+        "32":"./img/copy32.png",
+        "64":"./img/copy64.png"
     }
     },
     "permissions": [
@@ -19,7 +23,7 @@
     ],
     "content_scripts": [
         {
-          "matches": ["https://ads.google.com/aw/*"],
+          "matches": ["<all_urls>"],
           "js": ["./js/jquery.js", "./js/content.js"],
           "css": ["./css/style.css"]
         }

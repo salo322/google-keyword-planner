@@ -1,7 +1,11 @@
 chrome.runtime.onMessage.addListener(
   function({message}, sender, sendResponse) {
     if (message === 'getInfo'){
-      let scrollDiv = document.querySelector(".main-container");
+      let hostName = window.location.href;
+      console.log(hostName) 
+     
+      if(hostName.includes('https://ads.google.com/aw/')){
+         let scrollDiv = document.querySelector(".main-container");
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
       setTimeout(()=>{
          let array = [];
@@ -9,12 +13,14 @@ chrome.runtime.onMessage.addListener(
          console.log(lng)
          let  table = document.createElement('table');
          table.className = "tableForCopy";
-     
          //get keyword titles
          for (let i = 0; i < lng; i++) {
          let rowTitles = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable keyword-text')[i];
          let titleText = rowTitles.textContent
+
          console.log(titleText)
+
+      
          //get avg.
          let avg = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable .value-text ')[i];
          let avgText = avg.textContent
@@ -30,6 +36,7 @@ chrome.runtime.onMessage.addListener(
               }
               tr.appendChild(td);
          }
+         
          
          table.appendChild(tr);
       }
@@ -57,6 +64,10 @@ chrome.runtime.onMessage.addListener(
           },2000)
           
     }, 1000)
+      }else{
+        alert('This feature only works on google keyword planner page')
+      }
+  
   }
   else{
       console.error('something wrong')
