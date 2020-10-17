@@ -4,9 +4,9 @@ chrome.runtime.onMessage.addListener(
       let hostName = window.location.href;
       console.log(hostName)
        if(hostName.includes('https://ads.google.com/aw/')){
-
-          let scrollDiv = document.querySelector(".main-container");
-
+ 
+        chrome.runtime.sendMessage({message: "processing"});
+        let scrollDiv = document.querySelector(".main-container");
           let array = [];
           let numberMin = document.querySelector('.button[aria-label]').innerText;
           console.log(numberMin)
@@ -31,41 +31,24 @@ chrome.runtime.onMessage.addListener(
           let divided = createMaxNum/minNum;
           let ceiledNumber = Math.ceil(divided);
           console.log(ceiledNumber)
-
+         
           let x = 0;
-          let myVar = setInterval(myTimer, 4000);
+          let myVar = setInterval(myTimer, 3000, true);
+          
           function myTimer() {
            x++;
            if(x === ceiledNumber){
-
-
-             // setTimeout(()=>{
-
-
-                //es argchirdeba
-
-              // let prevButton = document.querySelector('.first .content material-icon');
-              // console.log(prevButton)
-              // $([prevButton]).trigger('click');
-
-               //send data for copy in background
-
-
-             // },5000)
-
-               chrome.runtime.sendMessage({message: "copy", data: array});
-
-
+             setTimeout(()=>{
+              chrome.runtime.sendMessage({message: "copy", data: array});
+             },7000)
              console.log('clear interval', 21312)
              clearInterval(myVar);
-
-
+           
           }
            console.log(x)
-          $(scrollDiv).animate({scrollTop:scrollDiv.scrollHeight}, 2000);
-           setTimeout(()=>{
-            scrollDiv.scrollTop = 0;
-           },2500)
+
+           $(scrollDiv).animate({scrollTop:scrollDiv.scrollHeight}, 3000);
+           scrollDiv.scrollTop = 0;
            let nextButton = $('.next div material-icon');
            setTimeout(()=>{
             let lng = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable keyword-text').length
@@ -83,7 +66,7 @@ chrome.runtime.onMessage.addListener(
            }
 
             $(nextButton).trigger('click');
-           },4000)
+           },5000)
 
 
           }
@@ -99,23 +82,4 @@ chrome.runtime.onMessage.addListener(
       console.error('something wrong')
   }
 });
-
-
-
-    //  let lng = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable keyword-text').length
-        //  console.log(lng)
-        //  let  table = document.createElement('table');
-        //  table.className = "tableForCopy";
-        //  //get keyword titles
-        //  for (let i = 0; i < lng; i++) {
-        //  let rowTitles = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable keyword-text')[i];
-        //  let titleText = rowTitles.textContent
-        //  console.log(titleText)
-        //  let avg = document.querySelectorAll('.ess-table-canvas div.particle-table-row .resizable .value-text ')[i];
-        //  let avgText = avg.textContent
-        //  console.log(avgText)
-        //  let arr = [titleText, avgText]
-        //  array.push(arr)
-        //  console.log(array)
-        //  }
 

@@ -33,6 +33,20 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
       if (info.menuItemId === "copyContextMenu"){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.sendMessage(tabs[0].id, {message: "getInfo"})
+          chrome.runtime.onMessage.addListener(
+            function({message, data}, sender, sendResponse) {
+                if (message === "processing"){
+          chrome.notifications.create(
+            'start_copy_' + Math.random(), {
+                 type: 'basic',
+                 iconUrl: 'img/copy64.png',
+                 title: "Processing",
+                 message: "Processing data, Please wait until ends"
+             }
+         )
+            }
+          })
+
           });
       }
       if (info.menuItemId === "openLink"){
