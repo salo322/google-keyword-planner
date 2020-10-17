@@ -53,3 +53,68 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
       }
   }
 });
+
+chrome.runtime.onMessage.addListener(
+    function({message, data}, sender, sendResponse) {
+        if (message === "copy"){
+            let  table = document.createElement('table');
+            table.className = "tableForCopy";
+
+            $('body').append(table);
+
+            chrome.notifications.create(
+                {
+                    type: 'basic',
+                    iconUrl: 'img/copy64.png',
+                    title: "Success",
+                    message: "Successfully copied"
+                }
+            )
+
+            for (let d = 0; d < data.length; d++) {
+                console.log(data[d][0]);
+                console.log(data[d][1])
+                let tr = document.createElement('tr');
+                for (let j = 0; j < 2; j++) {
+                    let td = document.createElement('td');
+                    if(j === 0){
+                        td.appendChild(document.createTextNode(`${data[d][0]}`));
+                    }
+                    else if(j === 1){
+                        td.appendChild(document.createTextNode(`${data[d][1]}`));
+                    }
+                    tr.appendChild(td);
+                }
+
+                table.appendChild(tr);
+            }
+
+            let urlField = document.querySelector('.tableForCopy');
+            selectElementContents(urlField)
+
+        }
+});
+
+function selectElementContents(el) {
+    var body = document.body, range, sel;
+    if (document.createRange && window.getSelection) {
+        range = document.createRange();
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        try {
+            range.selectNodeContents(el);
+            sel.addRange(range);
+        } catch (e) {
+            range.selectNode(el);
+            sel.addRange(range);
+        }
+
+        document.execCommand('copy')
+
+    } else if (body.createTextRange) {
+        range = body.createTextRange();
+        range.moveToElementText(el);
+        range.select();
+        document.execCommand('copy')
+    }
+}

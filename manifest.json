@@ -1,6 +1,6 @@
 {
     "name": "Keyword Planner Extension",
-    "version": "1.0.8",
+    "version": "1.1.0",
     "icons":{
       "16": "./img/copy16.png",
       "32":"./img/copy32.png",
@@ -19,7 +19,9 @@
        "storage",
        "https://ads.google.com/aw/*",
        "contextMenus",
-       "activeTab"
+       "activeTab",
+      "clipboard",
+      "notifications"
     ],
     "content_scripts": [
         {
@@ -31,6 +33,6 @@
     "background": {
       "scripts": ["./js/jquery.js", "./js/background.js"],
       "persistent": false
- 
+
     }
   }
