@@ -63,7 +63,7 @@ chrome.runtime.onMessage.addListener(
             $('body').append(table);
 
             chrome.notifications.create(
-                {
+               'text_copy_' + Math.random(), {
                     type: 'basic',
                     iconUrl: 'img/copy64.png',
                     title: "Success",
@@ -96,7 +96,7 @@ chrome.runtime.onMessage.addListener(
 });
 
 function selectElementContents(el) {
-    var body = document.body, range, sel;
+    let body = document.body, range, sel;
     if (document.createRange && window.getSelection) {
         range = document.createRange();
         sel = window.getSelection();
@@ -109,12 +109,15 @@ function selectElementContents(el) {
             sel.addRange(range);
         }
 
-        document.execCommand('copy')
-
     } else if (body.createTextRange) {
         range = body.createTextRange();
         range.moveToElementText(el);
         range.select();
-        document.execCommand('copy')
     }
+
+    document.execCommand('copy');
+    document.querySelector('.tableForCopy')
+    let elem = document.querySelector('.tableForCopy');
+    elem.parentNode.removeChild( document.querySelector('.tableForCopy'));
+
 }

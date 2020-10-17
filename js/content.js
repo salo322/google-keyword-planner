@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener(
            if(x === ceiledNumber){
 
 
-             setTimeout(()=>{
+             // setTimeout(()=>{
 
 
                 //es argchirdeba
@@ -49,9 +49,12 @@ chrome.runtime.onMessage.addListener(
               // $([prevButton]).trigger('click');
 
                //send data for copy in background
-                chrome.runtime.sendMessage({message: "copy", data: array});
 
-             },5000)
+
+             // },5000)
+
+               chrome.runtime.sendMessage({message: "copy", data: array});
+
 
              console.log('clear interval', 21312)
              clearInterval(myVar);
