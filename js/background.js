@@ -1,7 +1,7 @@
 
 chrome.contextMenus.create({
   id: "copyContextMenu",
-  title: "Copy keyword & Avg. Monthly Searches",
+  title: `Copy keyword && Avg. Monthly Searches`,
   contexts: ["all"]
 });
 
