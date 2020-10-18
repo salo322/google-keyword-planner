@@ -1,6 +1,6 @@
 {
     "name": "Keyword Planner Extension",
-    "version": "1.1.5",
+    "version": "1.1.7",
     "icons":{
       "16": "./img/copy16.png",
       "32":"./img/copy32.png",
