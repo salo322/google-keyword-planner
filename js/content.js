@@ -68,6 +68,7 @@ chrome.runtime.onMessage.addListener(
             $(nextButton).trigger('click');
            },5000)
           }
+
       }else{
         alert('This feature only works on google keyword planner page')
     }
