@@ -1,6 +1,6 @@
 {
     "name": "Keyword Planner Extension",
-    "version": "1.2.2",
+    "version": "1.2.19",
     "icons":{
       "16": "./img/copy16.png",
       "32":"./img/copy32.png",
@@ -22,7 +22,8 @@
        "contextMenus",
        "activeTab",
       "clipboard",
-      "notifications"
+      "notifications",
+      "clipboardWrite"
     ],
     "content_scripts": [
         {

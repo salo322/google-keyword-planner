@@ -1,30 +1,30 @@
+var browser = chrome || browser
 $( document ).ready(function() {
-    chrome.storage.local.get(['active', 'exp', 'expirationDate'], function(result) {
-        console.log(result.actDate)
-        console.log(result.expirationDate)
+    browser.storage.local.get(['active', 'exp', 'expirationDate', 'correctDate', 'wrongDate', 'left'], function(result) {
+   
         let todaysDate = new Date();
-        let now = todaysDate.toDateString()
-        console.log(now)
-        console.log(result.expirationDate)
-        let toNum1 = todaysDate.toLocaleDateString("en", {year:"numeric", day:"2-digit", month:"2-digit"})
+        let toNum1 = todaysDate.toDateString()
         console.log(toNum1)
-
-        let toNum2 = result.expirationDate;
+        let test = result.expirationDate;
+        console.log(test)
+        let newDate = new Date(+test); 
+        console.log(test);
+        let toNum2  = newDate.toDateString()
         console.log(toNum2)
         const date1 = new Date(`${toNum1}`);
         const date2 = new Date(`${toNum2}`);
         const diffTime = Math.abs(date2 - date1);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         console.log(diffTime + " milliseconds");
-        let daysLeft = diffDays + "  (days left)";
-       
-        if(toNum2 !== toNum1){
-            if(result.active === 'true'){
+        let daysLeft = "(" +  diffDays + ' ' +"days left)";
+
+        if(result.active === 'true' && result.correctDate === 'true'){
+            console.log('works...')      
                     $('.inactive-page-status').text('Active')
                     $('.inactive-page-status').css('color', 'green')
                     $('.inactive-status-container').css('width', '99px') 
                     $('.activation-date-add').css('display', 'flex')
-                    let expirationDate = $(`<div class="active-expDate"> Expiration Date: ${result.expirationDate}      ${  daysLeft} </div>`)
+                    let expirationDate = $(`<div class="active-expDate"> Expiration Date: ${toNum2 }      ${  daysLeft} </div>`)
                     $(expirationDate).css('color', '#686d76')
                     $('.inactive-main-div').append(expirationDate)
                     $('.active-expDate').nextAll('div').remove();
@@ -37,22 +37,19 @@ $( document ).ready(function() {
                     $('.inactive-button').removeClass('hideDiv')
                     $('.active-expDate').removeClass('hideDiv')
                     $('.inactive-page-status').css('color', 'green')
-            }
-        }else{
-            if(result.exp === 'over'){
-                console.log('true')
-                console.log('equal')
-                chrome.storage.local.remove(['active']);
+            }else if(result.exp === 'over' && result.wrongDate === 'false'){ 
                 $('.licence-key').text('Your license key has expired, contact us to buy new License')
                 $('.licence-key').css('color', 'red')
-            }
-            console.log('false')
-        }      
+             }
+        
+         
+
+           
     })
     $(".inactive-button" ).click(function() {
         if($('.inactive-page-input').val().length > 1){
             let value = $('.inactive-page-input').val();
-            chrome.runtime.sendMessage({messageRequest: value}, function(response) {
+            browser.runtime.sendMessage({messageRequest: value}, function(response) {
             if(response.answer === 'activeMode'){    
             let inactiveDiv = $('<div class="inactive-status-container">' +
             '<div class="inactive-status-title">Status:</div>'+
@@ -64,7 +61,7 @@ $( document ).ready(function() {
             $('.inactive-page-input').prop('disabled', true);
             $('.inactive-page-input').val('') 
             $('.inactive-button').css('background', 'grey')
-            chrome.storage.local.set({active: 'true', exp : 'over'});
+            browser.storage.local.set({active: 'true', exp : 'over'});
             } else if(response.answer === 'problem'){
             console.log('activation problem')
             $('.licence-key').text('Your Key is not valid, Please try again')

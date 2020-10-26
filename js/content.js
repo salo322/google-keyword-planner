@@ -1,11 +1,13 @@
-chrome.runtime.onMessage.addListener(
+var browser = chrome || browser
+
+browser.runtime.onMessage.addListener(
   function({message}, sender, sendResponse) {
     if (message === 'getInfo'){
       let hostName = window.location.href;
       console.log(hostName)
        if(hostName.includes('https://ads.google.com/aw/')){
  
-        chrome.runtime.sendMessage({message: "processing"});
+        browser.runtime.sendMessage({message: "processing"});
         let scrollDiv = document.querySelector(".main-container");
           let array = [];
           let numberMin = document.querySelector('.button[aria-label]').innerText;
@@ -39,7 +41,7 @@ chrome.runtime.onMessage.addListener(
            x++;
            if(x === ceiledNumber){
              setTimeout(()=>{
-              chrome.runtime.sendMessage({message: "copy", data: array});
+              browser.runtime.sendMessage({message: "copy", data: array});
              },7000)
              console.log('clear interval', 21312)
              clearInterval(myVar);
